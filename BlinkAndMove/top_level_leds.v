@@ -20,7 +20,7 @@ module top_level_leds /*#(parameter F_CLK_OUT = 1, F_CLK_IN = 50_000_000)*/ (
 
   shift_reg u_shift_reg(
 
-  				.rst(),
+  				.i_rst(i_rst),
   				.clk(),
   				.i_valid(),
   				.o_data()
