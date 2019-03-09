@@ -10,7 +10,7 @@ module  shift_reg(
 	always @(posedge clk) begin
 		if (rst) begin
 			
-			o_data <= 4'b0001;
+			o_data <= 4'd1;
 			
 		end
 		else if (i_valid == 1'b1) begin
@@ -27,7 +27,5 @@ module  shift_reg(
 
 		end
 	end
-
-
 
 endmodule
