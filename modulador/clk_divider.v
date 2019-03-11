@@ -22,7 +22,7 @@ module clk_divider #(parameter NBITS  = 3) (
     if (i_rst) begin
           
       aux_clk_out <= 0;
-      counter <= 0; 
+      counter <= {NBITS{1'b0}}; 
           
     end else begin
       
