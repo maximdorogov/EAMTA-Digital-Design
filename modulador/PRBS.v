@@ -23,6 +23,8 @@ always @(posedge clk) begin
 	end
 	else 
 		shift_reg <= shift_reg;
+
+	assign o_data = shift_reg[NB-1];
 end
 
 endmodule
