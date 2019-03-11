@@ -2,6 +2,8 @@
 `define N_LEDS 4
 `define NB_SW 4
 
+`timescale 1ns/100ps
+
 module top_level_leds_tb (   
    /*no hay salidas ni entradas*/   
   );
