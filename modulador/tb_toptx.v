@@ -16,6 +16,12 @@ module tb_toptx();
 	initial begin
 		i_enable = 4'b0000;
 		i_reset = 1'b0;
-		
+		clock = 1'b1;
+		#2000 i_reset = 1'b1;
+		#2000 i_enable = 4'b11111;
+		#1000000 $finish;
+	end
+	
+	always#5 clock = ~clock;
 	
 endmodule
