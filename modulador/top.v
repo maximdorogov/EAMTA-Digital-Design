@@ -1,32 +1,47 @@
-module top(input i_reset,
-			input i_enb,
-			input clock
-			)
-			
-	prbs
-		u_prbs#(parameter NB = 9,
-			  parameter SEED = 9'h1AA,
-			  parameter HIGH = 9,
-			  parameter LOW = 5
-			 )
-			(
-			.o_data(),
-			.i_reset(),
-			.i_valid(),
-			.clock(),
-			.i_enable()
-			);
-		
-	fir
-		u_fir(
-		);
-		
-	counter
-		u_counter(
-		);
-		
-	always@(posedge clock) begin
-		
-	end
+module top #(parameter NB_COUNT = 3)( 
 
+			input i_reset,
+			input [3:0] i_enable,
+			input clock,
+			output [3:0] o_leds
+			);
+
+reg [NB_COUNT-1:0] count;
+wire valid;
+wire data_prbs;
+
+assign o_leds = i_enable;
+
+
+always@(posedge clock) begin
+		
+		if (!i_reset) 
+			
+			count <= {NB_COUNT{1'b0}};
+
+		else 
+			if (i_enable[0])
+				count <= count + 1;
+			else 
+				count <= count;
+end
+
+assign valid = (count == {NB_COUNT{1'b1}})?1'b1:1'b0;
+
+	PRBS
+		u_prbs
+		   (.o_data(data_prbs),
+			.i_reset(~i_reset),
+			.i_valid(valid),
+			.clock(clock),
+			.i_enable(i_enable[1]));
+		
+	fir_filter
+		u_fir( .clock(clock),
+			   .i_reset(~i_reset),
+			   .i_valid(valid),
+			   .i_enable(i_enable[2]),
+			   .i_probs(data_prbs),
+			  // o_data();
+		);
 endmodule
