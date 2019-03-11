@@ -1,4 +1,5 @@
-module  counter(
+module  counter #(parameter 1000MS = 32'd100_000_000, 500MS = 32'd50_000_000,
+							 250MS = 32'd25_500_000,100MS = 32'd12_000_000)(
   			 input clk,
    			 input i_rst, 
    			 input i_enable,
@@ -6,15 +7,15 @@ module  counter(
    			 output reg o_valid,    				 
   );
 	
-	localparam 1000MS = 32'd100_000_000;
+	/*localparam 1000MS = 32'd100_000_000;
 	localparam 500MS = 32'd50_000_000;
 	localparam 250MS = 32'd25_500_000;
-	localparam 100MS = 32'd12_000_000;
+	localparam 100MS = 32'd12_000_000;*/
 	
 	reg [31:0]compare;
 	reg [31:0]counter;
 
-	always @(posedge clk_in) begin
+	always @(posedge clk) begin
 	
 		case(i_sel)
 				2'b00: compare = 1000MS;
