@@ -1,8 +1,12 @@
 
 module fir_filter #(parameter NB_COEFF = 10, NBF_COEFF = 8, OVER_SAMP = 8, N_BAUDS = 7, NB_COUNT = 3, NB_OUTPUT = 13)(
 
+<<<<<<< HEAD
 	input clk, i_enable, i_valid, i_prbs, i_rst,
 	output [NB_OUTPUT-1:0]o_data
+=======
+	input clk, i_enable, i_valid, i_prbs, i_rst
+>>>>>>> fix de sintaxis en PRBS y fir_filter
 
 );
 
