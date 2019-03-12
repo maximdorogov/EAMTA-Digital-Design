@@ -4,7 +4,7 @@ module top_tx #(parameter NB_COUNT = 3)(
 			input [3:0] i_enable,
 			input clock,
 			output [3:0] o_leds,
-			output [12:0] fir_out;
+			output [12:0] fir_out
 			);
 
 reg [NB_COUNT-1:0] count;

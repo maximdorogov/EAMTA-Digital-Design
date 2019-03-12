@@ -11,21 +11,22 @@ module top#(
 	/**
 		Señales
 	*/	
-	reg [COUNT_WIDTH-1 : 0] countR;
-	reg [COUNT_WIDTH-1 : 0] countW;
+	reg [MAX_COUNT-1 : 0] countR;
+	reg [MAX_COUNT-1 : 0] countW;
 				
 	wire write_enable;
 	wire read_enable;
 	wire [10:0] fir_out;
 	wire bram_full;
 	wire pulso_countW_max;
+	
+	reg val_anterior;
+    reg pulso_inicial;
 	/**
 		Instancias
 	*/
 	top_tx
-		inst_top_tx#(
-					.NB_COUNT(3)
-					)
+		#(.NB_COUNT(3))inst_top_tx 
 				   (
 				   .i_reset(i_reset),
 				   .i_enable(i_enable),
@@ -34,11 +35,7 @@ module top#(
 				   .fir_out(fir_out)
 				   );
 	bram
-		inst_bram#(
-				   .NB_ADDR(15),
-				   .NB_DATA(14),
-				   .INIT_FILE("RAM_INIT.txt"
-				   )
+		#(.NB_ADDR(15),.NB_DATA(14),.INIT_FILE("RAM_INIT.txt")) inst_bram 
 				   (
 				   .o_data(),
 				   .i_data(),
@@ -50,8 +47,7 @@ module top#(
 				   );
 		
 	FSM
-		inst_fsm#()
-				(
+		inst_fsm(
 				.clk(clock),
 				.i_rst(i_reset),
 				.i_write_full(pulso_countW_max),
@@ -61,22 +57,21 @@ module top#(
 				);
 	
 	assign o_led_r = bram_full;
-	assign pulso_countW_max <= (contW == MAX-1)? 1 : 0;
+	assign pulso_countW_max = (countW & (MAX_COUNT-1)) ? 1'b1 : 1'b0;
 	/**
 		Detector de flanco
 	*/
-	reg val_anterior;
-	reg pulso_inicial;
+
 	always@(posedge clock)begin
 		if(i_enable[3])begin
 			if(val_anterior == 0)begin
 				val_anterior <= 1'b1;
 				pulso_inicial <= 1'b1;
-			end else
+			end else begin
 				val_anterior <= 1'b1;
 				pulso_inicial <= 1'b0;
 			end
-		end else
+		end else begin
 			val_anterior <= 1'b0;
 			pulso_inicial <= 1'b0;
 		end
@@ -86,24 +81,29 @@ module top#(
 		Contador Write
 	*/
 	always@(posedge clock)begin:contW
-		if(i_enable[3] && write_enable)begin
-				countW <= countW + 1'b1;				
-			else begin
-				countW <= countW;
-			end
-		else
-			countW <= countW;
-		end
-	end
-	/**
-		Contador Read
-	*/
-	always@(posedge clock)being:contR
-		if(i_enable[0])begin
-			countR <= countR + 1'b1;
-		else
-			countR <= countR;
-		end
-	end
+        if(i_enable[3] && write_enable)begin
+                countW <= countW + 1'b1;    
+        end    
+        else if(i_reset)begin
+            countW <= ~MAX_COUNT;
+        end
+        else begin
+                countW <= countW;
+       end
+    end
+    /**
+        Contador Read
+    */
+    always@(posedge clock)begin:contR
+        if(i_enable[0])begin
+            countR <= countR + 1'b1;
+        end
+        else if(i_reset)begin 
+            countR <= ~MAX_COUNT;
+        end
+        else begin
+            countR <= countR;
+        end
+    end
 				
 endmodule
