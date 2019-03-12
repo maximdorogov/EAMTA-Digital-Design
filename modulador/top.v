@@ -37,11 +37,11 @@ assign valid = (count == {NB_COUNT{1'b1}})?1'b1:1'b0;
 			.i_enable(i_enable[1]));
 		
 	fir_filter
-		u_fir( .clock(clock),
-			   .i_reset(~i_reset),
+		u_fir( .clk(clock),
+			   .i_rst(~i_reset),
 			   .i_valid(valid),
 			   .i_enable(i_enable[2]),
-			   .i_probs(data_prbs),
+			   .i_prbs(data_prbs)
 			  // o_data();
 		);
 endmodule
