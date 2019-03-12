@@ -8,7 +8,9 @@ module top#(
 			output o_led_r,
 			output o_leds
 			);
-				
+	/**
+		Señales
+	*/	
 	reg [COUNT_WIDTH-1 : 0] countR;
 	reg [COUNT_WIDTH-1 : 0] countW;
 				
@@ -16,7 +18,9 @@ module top#(
 	wire read_enable;
 	wire [10:0] fir_out;
 	wire bram_full;
-	
+	/**
+		Instancias
+	*/
 	top_tx
 		inst_top_tx#(
 					.NB_COUNT(3)
@@ -58,6 +62,9 @@ module top#(
 	assign o_led_r = bram_full;
 	assign pulso_countW_max <= (contW == MAX-1)? 1 : 0;
 	//cuando llegue a cuenta-1 tiene que mandar un pulsito
+	/**
+		Contador Write
+	*/
 	always@(posedge clock)begin:contW
 		if(i_enable[3])begin
 				countW <= countW + 1'b1;				
@@ -68,7 +75,9 @@ module top#(
 			countW <= countW;
 		end
 	end
-	
+	/**
+		Contador Read
+	*/
 	always@(posedge clock)being:contR
 		if(i_enable[0])begin
 			countR <= countR + 1'b1;
