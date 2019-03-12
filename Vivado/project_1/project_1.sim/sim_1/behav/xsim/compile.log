@@ -1,7 +1,0 @@
-INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ASUS/Desktop/shift_leds_ex/shiftleds.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module shiftleds
-INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ASUS/Desktop/shift_leds_ex/tb_shiftleds.v" into library xil_defaultlib
-WARNING: [VRFC 10-998] macro NB_COUNT redefined [C:/Users/ASUS/Desktop/shift_leds_ex/tb_shiftleds.v:5]
-INFO: [VRFC 10-311] analyzing module tb_shiftleds
-INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ASUS/Desktop/EAMTA2019/Projects/Vivado/project_1/project_1.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module glbl
