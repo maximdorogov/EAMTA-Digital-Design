@@ -1,2 +1,3 @@
 Vivado/
-FSM_modelsim/
+ram_FSM/FSM_modelsim/
+ram_FSM/testbench

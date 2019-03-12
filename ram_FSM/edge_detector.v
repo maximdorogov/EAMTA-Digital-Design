@@ -22,6 +22,7 @@ module edge_detector(
 		end
 		else begin
 			o_enable <= 1'b0;
+			prev <= i_sw;
 		end
 	end
 	
