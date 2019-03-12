@@ -1,1 +1,8 @@
+C:/Users/ASUS/Desktop/EAMTA2019/Projects/ram_FSM/testbenchs/tb_edge_detector.v {1 {vlog -work work -stats=none C:/Users/ASUS/Desktop/EAMTA2019/Projects/ram_FSM/testbenchs/tb_edge_detector.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module tb_edge_detector
 
+Top level modules:
+	tb_edge_detector
+
+} {} {}}

@@ -2,8 +2,8 @@ module top(
 			input [3:0] i_enable,
 			input clock,
 			input i_reset,
-			output o_led_r,
-			output o_leds
+			output [3:0] o_led_r,
+			output [3:0] o_leds
 			);
 	localparam MAX_COUNT = 2047;
 	/**
@@ -14,30 +14,33 @@ module top(
 				
 	wire write_enable;
 	wire read_enable;
-	wire [10:0] fir_out;
+	wire [31:0] fir_out;
 	wire bram_full;
 	wire pulso_countW_max;
-	wire [12:0] salida_bram;
+	wire [31:0] salida_bram;
 	
 	reg val_anterior;
-    reg pulso_inicial;
+    wire pulso_inicial;
+  
+
+
 	/**
 		Instancias
 	*/
 	top_tx
 		#(.NB_COUNT(3))inst_top_tx 
 				   (
-				   .i_reset(i_reset),
+				   .i_reset(!i_reset),
 				   .i_enable(i_enable),
 				   .clock(clock),
-				   .o_leds(o_leds),
-				   .fir_out(fir_out)
+				   .o_leds(o_leds[0]),
+				   .fir_out(fir_out[12:0])
 				   );
 	bram
 		#(.NB_ADDR(15),.NB_DATA(14),.INIT_FILE("RAM_INIT.txt")) inst_bram 
 				   (
 				   .o_data(salida_bram),
-				   .i_data(fir_out),
+				   .i_data({19'd0,fir_out}),
 				   .i_write_addr(countW),
 				   .i_read_addr(countR),
 				   .i_read_enable(1'b1),
@@ -48,24 +51,33 @@ module top(
 	FSM
 		inst_fsm(
 				.clk(clock),
-				.i_rst(i_reset),
+				.i_rst(!i_reset),
 				.i_write_full(pulso_countW_max),
 				.edge_detector(pulso_inicial),
 				.full_mem_indicator(bram_full),
 				.o_write_ena(write_enable)
 				);
-	ila_0 inst_ila_0 (
+	ila_1 inst_ila_1 (
                     .clk(clock), // input wire clk
-                    .probe0(salida_bram) // input wire [12:0] probe0
+                    .probe0(salida_bram) // input wire [31:0] probe0
                 );
 	
-	assign o_led_r = bram_full;
+	assign o_led_r[0] = bram_full;
 	assign pulso_countW_max = (countW & (MAX_COUNT-1)) ? 1'b1 : 1'b0;
 	/**
 		Detector de flanco
 	*/
 
-	always@(posedge clock)begin
+	edge_detector 
+	u_edge_detector(
+
+					.clk(clock),
+					.i_rst(!i_reset),
+					.i_sw(i_enable[3]),
+					.o_enable(pulso_inicial)
+	);
+
+	/*always@(posedge clock)begin
 		if(i_enable[3])begin
 			if(val_anterior == 0)begin
 				val_anterior <= 1'b1;
@@ -78,7 +90,7 @@ module top(
 			val_anterior <= 1'b0;
 			pulso_inicial <= 1'b0;
 		end
-	end
+	end*/
 	//cuando llegue a cuenta-1 tiene que mandar un pulsito
 	/**
 		Contador Write

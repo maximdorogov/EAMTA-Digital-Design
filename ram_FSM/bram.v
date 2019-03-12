@@ -1,7 +1,7 @@
 (* ram_style = "block" *)
 module bram#(parameter NB_ADDR = 15,
 			 parameter NB_DATA = 14,
-			 parameter INIT_FILE = "")
+			 parameter INIT_FILE = "RAM_INIT.txt")
 			(
 			output reg [NB_DATA-1 : 0] o_data,
 			input [NB_DATA-1 : 0] i_data,
@@ -31,7 +31,7 @@ module bram#(parameter NB_ADDR = 15,
 	
 	generate
 		initial
-			$readmemh("INI_RAM.txt", ram, 0, (2**NB_ADDR)-1);
+			$readmemh(INIT_FILE, ram, 0, (2**NB_ADDR)-1);
 	endgenerate
 
 endmodule
