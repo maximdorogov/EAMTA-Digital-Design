@@ -3,8 +3,8 @@
 Jun 14 2018
 20:41:02
 C:/Users/ASUS/Desktop/EAMTA2019/Projects/Vivado/fir_filter/fir_filter.sim/sim_1/behav/xsim/glbl.v,1529022455,verilog,,,,glbl,,,,,,,,
-C:/Users/ASUS/Desktop/EAMTA2019/Projects/modulador/PRBS.v,1552346066,verilog,,C:/Users/ASUS/Desktop/EAMTA2019/Projects/modulador/fir_filter.v,,PRBS,,,../../../../../../modulador,,,,,
+C:/Users/ASUS/Desktop/EAMTA2019/Projects/modulador/PRBS.v,1552362025,verilog,,C:/Users/ASUS/Desktop/EAMTA2019/Projects/modulador/fir_filter.v,,PRBS,,,../../../../../../modulador,,,,,
 C:/Users/ASUS/Desktop/EAMTA2019/Projects/modulador/coeffs.v,1550521572,verilog,,,,,,,,,,,,
-C:/Users/ASUS/Desktop/EAMTA2019/Projects/modulador/fir_filter.v,1552346462,verilog,,C:/Users/ASUS/Desktop/EAMTA2019/Projects/modulador/top.v,C:/Users/ASUS/Desktop/EAMTA2019/Projects/modulador/coeffs.v,fir_filter,,,../../../../../../modulador,,,,,
+C:/Users/ASUS/Desktop/EAMTA2019/Projects/modulador/fir_filter.v,1552362017,verilog,,C:/Users/ASUS/Desktop/EAMTA2019/Projects/modulador/top.v,C:/Users/ASUS/Desktop/EAMTA2019/Projects/modulador/coeffs.v,fir_filter,,,../../../../../../modulador,,,,,
 C:/Users/ASUS/Desktop/EAMTA2019/Projects/modulador/tb_top.v,1552347575,verilog,,,,tb_top,,,../../../../../../modulador,,,,,
 C:/Users/ASUS/Desktop/EAMTA2019/Projects/modulador/top.v,1552347745,verilog,,C:/Users/ASUS/Desktop/EAMTA2019/Projects/modulador/tb_top.v,,top,,,../../../../../../modulador,,,,,

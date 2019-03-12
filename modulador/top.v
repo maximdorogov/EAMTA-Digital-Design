@@ -9,6 +9,7 @@ module top #(parameter NB_COUNT = 3)(
 reg [NB_COUNT-1:0] count;
 wire valid;
 wire data_prbs;
+wire [12:0] fir_out;
 
 assign o_leds = i_enable;
 
@@ -41,8 +42,14 @@ assign valid = (count == {NB_COUNT{1'b1}})?1'b1:1'b0;
 			   .i_rst(~i_reset),
 			   .i_valid(valid),
 			   .i_enable(i_enable[2]),
-			   .i_prbs(data_prbs)
-			  // o_data();
+			   .i_prbs(data_prbs),
+			   .o_data(fir_out)
 		);
+		
+	ila_0 
+	fir_output_ila (
+            .clk(clock), // input wire clk        
+            .probe0(fir_out) // input wire [12:0] probe0
+        );
 
 endmodule
