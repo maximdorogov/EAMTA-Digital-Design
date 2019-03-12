@@ -17,7 +17,7 @@ assign o_leds = i_enable;
 
 always@(posedge clock) begin
 		
-		if (!i_reset) 
+		if (i_reset) 
 			
 			count <= {NB_COUNT{1'b0}};
 

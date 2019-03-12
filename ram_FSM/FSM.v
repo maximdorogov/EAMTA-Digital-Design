@@ -18,7 +18,6 @@ module FSM (
 	always @(posedge clk) begin
 		if (i_rst) begin		
 			state <= IDLE_STATE;
-			full_mem_indicator <= 1'd0;	
 		end
 		else begin
 			state <= next_state;		
