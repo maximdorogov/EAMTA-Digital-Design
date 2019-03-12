@@ -47,10 +47,10 @@ assign valid = (count == {NB_COUNT{1'b1}})?1'b1:1'b0;
 		);
 		
     ila_10 inst_ila_10 (
-            .clk(clock), // input wire clk
+            .clk(clock), // input wire clk        
         
-        
-            .probe0(output_fir_filter) // input wire [12:0] probe0
+            .probe0(output_fir_filter), // input wire [12:0] probe0 
+            .probe1(valid) // input wire [0:0]  probe1
         );
 
 endmodule
