@@ -75,7 +75,7 @@ set rc [catch {
   set_property ip_cache_permissions {read write} [current_project]
   set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
   add_files -quiet C:/Users/ASUS/Desktop/EAMTA2019/Projects/Vivado/fir_filter/fir_filter.runs/synth_1/top.dcp
-  read_ip -quiet c:/Users/ASUS/Desktop/EAMTA2019/Projects/Vivado/fir_filter/fir_filter.srcs/sources_1/ip/ila_0/ila_0.xci
+  read_ip -quiet C:/Users/ASUS/Desktop/EAMTA2019/Projects/Vivado/fir_filter/fir_filter.srcs/sources_1/ip/ila_0/ila_0.xci
   read_xdc C:/Users/ASUS/Desktop/EAMTA2019/files/modulador_fir/coeffandxdc/eamta_arty.xdc
   link_design -top top -part xc7a35ticsg324-1L
   close_msg_db -file init_design.pb

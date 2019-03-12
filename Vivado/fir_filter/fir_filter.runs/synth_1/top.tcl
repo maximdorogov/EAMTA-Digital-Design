@@ -38,7 +38,7 @@ read_verilog -library xil_defaultlib {
   C:/Users/ASUS/Desktop/EAMTA2019/Projects/modulador/fir_filter.v
   C:/Users/ASUS/Desktop/EAMTA2019/Projects/modulador/top.v
 }
-read_ip -quiet c:/Users/ASUS/Desktop/EAMTA2019/Projects/Vivado/fir_filter/fir_filter.srcs/sources_1/ip/ila_0/ila_0.xci
+read_ip -quiet C:/Users/ASUS/Desktop/EAMTA2019/Projects/Vivado/fir_filter/fir_filter.srcs/sources_1/ip/ila_0/ila_0.xci
 set_property used_in_synthesis false [get_files -all c:/Users/ASUS/Desktop/EAMTA2019/Projects/Vivado/fir_filter/fir_filter.srcs/sources_1/ip/ila_0/ila_v6_2/constraints/ila_impl.xdc]
 set_property used_in_implementation false [get_files -all c:/Users/ASUS/Desktop/EAMTA2019/Projects/Vivado/fir_filter/fir_filter.srcs/sources_1/ip/ila_0/ila_v6_2/constraints/ila_impl.xdc]
 set_property used_in_implementation false [get_files -all c:/Users/ASUS/Desktop/EAMTA2019/Projects/Vivado/fir_filter/fir_filter.srcs/sources_1/ip/ila_0/ila_v6_2/constraints/ila.xdc]
