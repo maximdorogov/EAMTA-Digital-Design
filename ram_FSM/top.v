@@ -1,15 +1,13 @@
-module top#(
-			parameter MAX_COUNT = 2047
-			)
-			(
+module top(
 			input [3:0] i_enable,
 			input clock,
 			input i_reset,
 			output o_led_r,
 			output o_leds
 			);
+	localparam MAX_COUNT = 2047;
 	/**
-		Señales
+		Seniales
 	*/	
 	reg [MAX_COUNT-1 : 0] countR;
 	reg [MAX_COUNT-1 : 0] countW;
@@ -19,6 +17,7 @@ module top#(
 	wire [10:0] fir_out;
 	wire bram_full;
 	wire pulso_countW_max;
+	wire [12:0] salida_bram;
 	
 	reg val_anterior;
     reg pulso_inicial;
@@ -37,8 +36,8 @@ module top#(
 	bram
 		#(.NB_ADDR(15),.NB_DATA(14),.INIT_FILE("RAM_INIT.txt")) inst_bram 
 				   (
-				   .o_data(),
-				   .i_data(),
+				   .o_data(salida_bram),
+				   .i_data(fir_out),
 				   .i_write_addr(countW),
 				   .i_read_addr(countR),
 				   .i_read_enable(1'b1),
@@ -55,6 +54,10 @@ module top#(
 				.full_mem_indicator(bram_full),
 				.o_write_ena(write_enable)
 				);
+	ila_0 inst_ila_0 (
+                    .clk(clock), // input wire clk
+                    .probe0(salida_bram) // input wire [12:0] probe0
+                );
 	
 	assign o_led_r = bram_full;
 	assign pulso_countW_max = (countW & (MAX_COUNT-1)) ? 1'b1 : 1'b0;
