@@ -3,8 +3,8 @@
 module PRBS #(parameter NB = 9, 
 		      parameter SEED = 9'h1AA,
 		      parameter HIGH = 9,
-		      parameter LOW = 5)
-	(
+		      parameter LOW = 5)(
+	
 	output o_data,
 	input i_reset, i_valid, clock, i_enable);
 

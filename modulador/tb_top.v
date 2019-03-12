@@ -6,7 +6,8 @@ module tb_top();
 	reg [3:0] i_enable;
 	reg i_reset,clock;
 
-	top   u_top 
+	top 
+	u_top
 	    	(.i_reset(i_reset),
 	    	 .i_enable(i_enable),
 	    	 .clock(clock),

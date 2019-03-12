@@ -1,7 +1,9 @@
 
 module fir_filter #(parameter NB_COEFF = 10, NBF_COEFF = 8, OVER_SAMP = 8, N_BAUDS = 7, NB_COUNT = 3, NB_OUTPUT = 13)(
+
 	input clk, i_enable, i_valid, i_prbs, i_rst,
 	output [NB_OUTPUT-1:0]o_data
+
 );
 
 /*Declaro la matriz de coeficientes del filtro*/
@@ -40,18 +42,18 @@ end
       counter <= {NB_COUNT{1'b0}}; 
       sample_add <= {NB_OUTPUT{1'b0}};
           
-    end else 
+    end 
+    else begin
      	if (i_enable) begin
     		counter <= counter + 1'b1;
     		sample_add <= sample_add_w[counter];
-    	end else begin
+    	end 
+    	else begin
     		counter <= counter;
     		sample_add <= sample_add;
     	end
-    end        
- end
-
-
+    end
+ end        
 
  generate
  	genvar ptr;
