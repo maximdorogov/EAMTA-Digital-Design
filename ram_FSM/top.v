@@ -44,7 +44,7 @@ module top(
 				   .i_data({19'd0,fir_out}),
 				   .i_write_addr(countW),
 				   .i_read_addr(countR),
-				   .i_read_enable(read_enable),
+				   .i_read_enable(1'b1),
 				   .i_write_enable(write_enable),
 				   .clock(clock)
 				   );
@@ -93,16 +93,16 @@ module top(
 		end
 	end
 	//cuando llegue a cuenta-1 tiene que mandar un pulsito
-	assign read_enable = 1'b1;
+	assign read_enable = i_enable[3];
 	/**
 		Contador Write
 	*/
 	always@(posedge clock)begin:contW
         if(~i_reset)begin
-			countW <= ~MAX_COUNT;
+			countW <= 11'b0;
 		end
 		else begin
-			if(write_enable)begin
+			if(write_enable && i_enable[0])begin
 				countW <= countW + 1'b1; 
 			end
 			else begin
@@ -115,7 +115,7 @@ module top(
     */
     always@(posedge clock)begin:contR        
 		if(~i_reset)begin
-			countR <= ~MAX_COUNT;
+			countR <= 11'b0;
 		end
 		else begin
 			if(read_enable)begin
