@@ -79,7 +79,7 @@ module top(
 	);
 	*/
 	always@(posedge clock)begin
-		if(i_enable[0])begin
+		if(i_enable[3])begin
 			if(val_anterior == 0)begin
 				val_anterior <= 1'b1;
 				pulso_inicial <= 1'b1;
