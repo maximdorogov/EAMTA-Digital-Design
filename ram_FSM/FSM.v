@@ -52,7 +52,7 @@ module FSM (
 			IDLE_STATE: begin			
 				//o_read_ena <= 1'b0;
 				o_write_ena <= 1'b0;
-
+				
 				if(edge_detector) begin
 					next_state <= WRITE_STATE;
 				end

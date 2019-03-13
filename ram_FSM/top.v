@@ -14,6 +14,7 @@ module top(
 	reg [NB_MAX_COUNT-1 : 0] countW;
 				
 	wire write_enable;
+	wire i_ena;
 	wire read_enable;
 	wire [12:0] fir_out;
 	wire bram_full;
@@ -94,6 +95,7 @@ module top(
 	end
 	//cuando llegue a cuenta-1 tiene que mandar un pulsito
 	assign read_enable = i_enable[3];
+
 	/**
 		Contador Write
 	*/
@@ -102,7 +104,7 @@ module top(
 			countW <= 11'b0;
 		end
 		else begin
-			if(write_enable && i_enable[0])begin
+			if(write_enable /*&& i_enable[0]*/)begin
 				countW <= countW + 1'b1; 
 			end
 			else begin
