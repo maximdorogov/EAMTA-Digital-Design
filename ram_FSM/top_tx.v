@@ -33,14 +33,14 @@ assign valid = (count == {NB_COUNT{1'b1}})?1'b1:1'b0;
 	PRBS
 		u_prbs
 		   (.o_data(data_prbs),
-			.i_reset(~i_reset),
+			.i_reset(i_reset),
 			.i_valid(valid),
 			.clock(clock),
 			.i_enable(i_enable[1]));
 		
 	fir_filter
 		u_fir( .clk(clock),
-			   .i_rst(~i_reset),
+			   .i_rst(i_reset),
 			   .i_valid(valid),
 			   .i_enable(i_enable[2]),
 			   .i_prbs(data_prbs),
