@@ -23,14 +23,12 @@ module tb_top();
 		i_reset = 1'b0;
 		#40
 		i_reset = 1'b1;
+		#60
+		i_enable = 3'b110;
+		#80
+		i_enable = 3'b111;
 		#100
 		i_enable = 3'b110;
-		#120
-		i_enable = 3'b110;
-		#140
-		i_enable = 3'b111;
-		#160
-		i_enable = 3'b111;
    end
 
    always #5 CLK100MHZ = ~CLK100MHZ;
@@ -38,10 +36,10 @@ module tb_top();
 top
   u_top
     (
-     .i_enable	(i_enable[0]),
+     .i_enable	(i_enable),
      .clock		(CLK100MHZ),
      .i_reset	(i_reset),
-     .o_led_r	(o_led_r[0]),
+     .o_led_r	(o_led_r),
      .o_leds	(o_leds)
      );
 

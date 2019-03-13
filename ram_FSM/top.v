@@ -6,11 +6,12 @@ module top(
 			output [3:0] o_leds
 			);
 	localparam MAX_COUNT = 2047;
+	localparam NB_MAX_COUNT = 11;
 	/**
 		Seniales
 	*/	
-	reg [MAX_COUNT-1 : 0] countR;
-	reg [MAX_COUNT-1 : 0] countW;
+	reg [NB_MAX_COUNT-1 : 0] countR;
+	reg [NB_MAX_COUNT-1 : 0] countW;
 				
 	wire write_enable;
 	wire read_enable;
@@ -20,7 +21,7 @@ module top(
 	wire [31:0] salida_bram;
 	
 	reg val_anterior;
-    wire pulso_inicial;
+    reg pulso_inicial;
   
 
 
@@ -43,7 +44,7 @@ module top(
 				   .i_data({19'd0,fir_out}),
 				   .i_write_addr(countW),
 				   .i_read_addr(countR),
-				   .i_read_enable(1'b1),
+				   .i_read_enable(read_enable),
 				   .i_write_enable(write_enable),
 				   .clock(clock)
 				   );
@@ -63,48 +64,67 @@ module top(
                 );
 	
 	assign o_led_r[0] = bram_full;
-	assign pulso_countW_max = (countW /*&*/== (MAX_COUNT-1)) ? 1'b1 : 1'b0;
+	assign pulso_countW_max = (countW == (MAX_COUNT-1)) ? 1'b1 : 1'b0;
 	/**
 		Detector de flanco
 	*/
-
+	/*
 	edge_detector 
 	u_edge_detector(
 
 					.clk(clock),
-					.i_rst(~i_reset),
-					.i_sw(i_enable[3]),
+					.i_rst(!i_reset),
+					.i_sw(i_enable[0]),
 					.o_enable(pulso_inicial)
 	);
-
+	*/
+	always@(posedge clock)begin
+		if(i_enable[0])begin
+			if(val_anterior == 0)begin
+				val_anterior <= 1'b1;
+				pulso_inicial <= 1'b1;
+			end else begin
+				val_anterior <= 1'b1;
+				pulso_inicial <= 1'b0;
+			end
+		end else begin
+			val_anterior <= 1'b0;
+			pulso_inicial <= 1'b0;
+		end
+	end
 	//cuando llegue a cuenta-1 tiene que mandar un pulsito
+	assign read_enable = 1'b1;
 	/**
 		Contador Write
 	*/
 	always@(posedge clock)begin:contW
-        if(/*i_enable[3]*/ write_enable)begin
-                countW <= countW + 1'b1;    
-        end    
-        else if(i_reset)begin
-            countW <= 11'b0;
-        end
-        else begin
-                countW <= countW;
-       end
+        if(~i_reset)begin
+			countW <= ~MAX_COUNT;
+		end
+		else begin
+			if(write_enable)begin
+				countW <= countW + 1'b1; 
+			end
+			else begin
+				countW <= countW;
+			end
+		end
     end
     /**
         Contador Read
     */
-    always@(posedge clock)begin:contR
-        if(read_enable)begin
+    always@(posedge clock)begin:contR        
+		if(~i_reset)begin
+			countR <= ~MAX_COUNT;
+		end
+		else begin
+			if(read_enable)begin
             countR <= countR + 1'b1;
-        end
-        else if(i_reset)begin 
-            countR <= 11'b0;
-        end
-        else begin
-            countR <= countR;
-        end
+			end
+			else begin
+				countR <= countR;
+			end
+		end
     end
 				
 endmodule
